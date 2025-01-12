@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-lg-8 col-sm-12">
+        <div class="credit-card">
+            <!-- Numéro de carte -->
+            <div class="number multifield">
+                <input type="text" maxlength="4" inputmode="numeric" pattern="\d+" [(ngModel)]="numeroPart1"
+                    name="numeroPart1" [disabled]="isDisabled" required />
+                <input type="text" maxlength="4" inputmode="numeric" pattern="\d+" [(ngModel)]="numeroPart2"
+                    name="numeroPart2" [disabled]="isDisabled" required />
+                <input type="text" maxlength="4" inputmode="numeric" pattern="\d+" [(ngModel)]="numeroPart3"
+                    name="numeroPart3" [disabled]="isDisabled" required />
+                <input type="text" maxlength="4" inputmode="numeric" pattern="\d+" [(ngModel)]="numeroPart4"
+                    name="numeroPart4" [disabled]="isDisabled" required />
+                <input type="hidden" name="numeroCarte" [(ngModel)]="numeroCarte" />
+            </div>
+
+            <!-- Date d'expiration -->
+            <div class="date multifield">
+                <span>Date Expiration</span>
+                <input type="text" maxlength="2" inputmode="numeric" placeholder="MM" [(ngModel)]="monthExpiration"
+                    name="monthExpiration" [disabled]="isDisabled" required />
+                /
+                <input type="text" maxlength="4" inputmode="numeric" placeholder="YYYY" [(ngModel)]="yearExpiration"
+                    name="yearExpiration" [disabled]="isDisabled" required />
+                <input type="hidden" name="dateExpiration" [(ngModel)]="dateExpiration" />
+            </div>
+        </div>
+
+        <!-- Montant -->
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Montant</mat-card-title>
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Montant à renverser" name="montant" [(ngModel)]="montant"
+                        [disabled]="isDisabled" />
+                </mat-form-field>
+
+                <!-- Boutons -->
+            <button mat-raised-button color="primary" type="submit" (click)="submitForm()" *ngIf="!isDisabled">
+                Valider
+            </button>
+            
+            <button mat-raised-button color="accent" type="button" (click)="toggleEdit()" *ngIf="isDisabled && !isEditing">
+                Modifier
+            </button>
+            
+            <button mat-raised-button color="accent" type="button" (click)="toggleEdit()" *ngIf="isDisabled && isEditing">
+                Enregistrer
+            </button>
+            
+            <button mat-raised-button color="warn" type="button" (click)="deleteCard()" *ngIf="isDisabled">
+                Supprimer
+            </button>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-lg-4 col-sm-12">
+        <app-detailscard></app-detailscard>
+    </div>
+</div>

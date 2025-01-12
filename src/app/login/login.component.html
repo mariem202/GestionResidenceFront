@@ -1,0 +1,55 @@
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <!-- MDB UI Kit CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Votre contenu HTML ici -->
+    <section class="vh-100">
+        <!-- <p-toast></p-toast> -->
+
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <!-- <img src="../../assets/images/Insurance-amico.png" class="img-fluid" alt="Sample image"> -->
+                    <img src="../../assets/images/house-rafiki.png" class="img-fluid" alt="Sample image">
+                </div>
+                <div class="wrapper">
+                    <div class="logo">
+                        <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfeYYFmO3h0jOVOmN305Yrf4d_cv2Yr54-ag&s"
+                            alt=""> -->
+                        <img src="../../assets/images/house.jpg" alt="">
+                    </div>
+                    <div class="text-center mt-4 name">
+                        Se Connecter
+                    </div>
+
+                    <form class="p-3 mt-3" (ngSubmit)="login()">
+                        <div class="form-field d-flex align-items-center">
+                            <span class="far fa-user"></span>
+                            <input type="text" name="email" [(ngModel)]="email" id="username" placeholder="Email">
+                        </div>
+                        <div class="form-field d-flex align-items-center">
+                            <span class="fas fa-key"></span>
+                            <input type="password" name="password" [(ngModel)]="password" id="pwd"
+                                placeholder="Password">
+                        </div>
+                        <button class="btn mt-3" type="submit">Login</button>
+                    </form>
+                    <div class="text-center fs-6">
+                        <a href="/register">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MDB UI Kit JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+</body>

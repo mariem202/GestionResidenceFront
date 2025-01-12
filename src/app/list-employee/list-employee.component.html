@@ -1,0 +1,132 @@
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Gérer <b>employee</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Search Input -->
+                        
+
+                        <a class="btn btn-success" data-toggle="modal" (click)="openAddPopup()"><i
+                                class="material-icons">&#xE147;</i> <span>Ajouter employee</span></a>
+                       
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>telephone</th>
+                        <th>num cnss</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let etudiant of etudiants">
+                        <td>{{ etudiant.nom }}</td>
+                        <td>{{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.numeroTelephone }}</td>
+                        <td>{{ etudiant.numCnss }}</td>
+                        <td>{{ etudiant.email }}</td>
+                        <td>{{ etudiant.role || 'Non spécifié'}}</td>
+                        <td>
+                            <a class="edit" title="Edit" data-toggle="tooltip" (click)="openEditPopup(etudiant)"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"
+                                (click)="deleteEtudiant(etudiant.id)"><i class="material-icons">&#xE872;</i></a>
+                          
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Popup pour ajouter un étudiant -->
+<div class="popup" *ngIf="showAddPopup">
+    <div class="popup-content">
+        <mat-card-content>
+            <mat-card-title>Ajouter un employee</mat-card-title>
+            <form class="basic-form" #addEtudiantForm="ngForm" (ngSubmit)="addEtudiant()">
+                <div class="row">
+                    <!-- Nom et Prénom -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Nom" id="nom" name="nom" class="form-control"
+                                [(ngModel)]="nouvelEtudiant.nom" required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Prénom" id="prenom" name="prenom"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.prenom" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Date de Naissance -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                        <input type="text" matInput placeholder="telephone" id="telephone" name="telephone" class="form-control"
+                            [(ngModel)]="nouvelEtudiant.numeroTelephone" required />
+                        </mat-form-field>
+                    </div>
+                    <!-- Sexe -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-select [(ngModel)]="nouvelEtudiant.role" name="sexe" required>
+                                <mat-option value="AGENT_MAINTENANCE">AGENT_MAINTENANCE</mat-option>
+                                <mat-option value="AGENT_ACCUEIL">AGENT_ACCUEIL</mat-option>
+                                <mat-option value="SURVEILLANT">SURVEILLANT</mat-option>
+                                <mat-option value="RESPONSABLE_ADMISSIONS">RESPONSABLE_ADMISSIONS</mat-option>
+                                <mat-option value="TECHNICIEN_INFORMATIQUE">TECHNICIEN_INFORMATIQUE</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Matricule et Filière -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="numemro Cnss" id="numCnss" name="numCnss"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.numCnss" required />
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <!-- Email -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="email" matInput placeholder="Email" id="email" name="email"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.email" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Mot de Passe -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="password" matInput placeholder="Mot de Passe" id="motDePasse" name="motDePasse"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.motDePasse" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="col-12 text-center">
+                        <button mat-flat-button class="addbtn" color="primary" type="submit">Ajouter</button>
+                        <button mat-flat-button class="closebtn" color="warn" type="button"
+                            (click)="closeAddPopup()">Annuler</button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+
+</div>

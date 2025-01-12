@@ -1,0 +1,113 @@
+<link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+
+<div class="container">
+    <div class="invoice">
+        <div class="row">
+            <div class="col-7">
+                <img src="../../assets/images/log.jpg" class="logo" />
+            </div>
+            <div class="col-5">
+                <h1 class="document-type display-4">FACTURE</h1>
+                <p class="text-right"><strong th:text="${invoiceReference}">Référence facture</strong></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <p class="addressMySam">
+                    <strong>Foyer du Bonheur
+</strong><br />
+                    8 avenue de la Martelle<br />
+                    81150 Terssac
+                </p>
+            </div>
+            <div class="col-5" *ngFor="let pay of payment">
+                <br /><br /><br />
+                <p class="addressDriver">
+                    Réf. Client <em th:text="${driver.getUserId()}">{{ pay.matriculeEtudiant }}</em><br />
+                    <span th:text="${driver.getFirstName()}">{{ pay.prenomEtudiant }}     </span> <span
+                        th:text="${driver.getLastName()}">{{ pay.nomEtudiant }}</span><br />
+                    
+                </p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <h6>Frais de services foyer de ce mois 
+        </h6>
+        <br />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Chambre</th>
+                    <!--<th>Quantité</th>-->
+                    <!--<th>Unité</th>-->
+                    <!--<th>PU TTC</th>-->
+                    <th>Date prevue de paimemt</th>
+                    <th>Date  de paimemt</th>
+                    <th class="text-right">Montant</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let pay of payment">
+                    <td>{{ pay.libellechambre }}</td>
+                    <td>{{ pay.datePrevu }}</td>
+                    <td>{{ pay.datePaiement }}</td>
+                   
+                   
+                    <td class="text-right" th:text="${summaryDriverClientsPayment.get('mysamHT')}">{{ pay.montant }} Dt</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                <table class="table table-sm text-right">
+                    <tr *ngFor="let pay of payment">
+                        <td><strong>Total HT</strong></td>
+                        <td class="text-right" th:text="${totalHT}">{{ pay.montant }} Dt</td>
+                    </tr>
+                    <tr>
+                        <td>TVA 20%</td>
+                        <td class="text-right" th:text="${totalTVA}">0,00€</td>
+                    </tr>
+                   
+                </table>
+            </div>
+        </div>
+
+        <p class="conditions">
+            En votre aimable règlement
+            <br />
+            Et avec nos remerciements.
+            <br /><br />
+            Conditions de paiement : paiement à réception de facture.
+            <br />
+            Aucun escompte consenti pour règlement anticipé.
+            <br />
+            Règlement par virement bancaire ou carte bancaire.
+            <br /><br />
+            En cas de retard de paiement, vous serez exclu du foyer
+        </p>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <p class="bottom-page text-right">
+            MYSAM SAS - N° SIRET 81754802700017 RCS ALBI<br />
+            8, avenue de la Martelle - 81150 TERSSAC 06 32 97 00 22 - www.mysam.fr<br />
+            Code APE 6312Z - N° TVA Intracom. FR 63 817548027<br />
+            <!--IBAN FR76 1470 7034 0031 4211 7882 825 - SWIFT CCBPFRPPMTZ-->
+        </p>
+        <!-- Imprimer Button -->
+        <div class="text-center">
+            <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+        </div>
+    </div>
+</div>

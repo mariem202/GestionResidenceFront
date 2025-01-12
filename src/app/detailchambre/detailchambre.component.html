@@ -1,0 +1,48 @@
+<div class="row">
+    <!-- Card column -->
+
+<!-- Container for another table section -->
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Detail <b>Etudiant</b></h2>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom <i class="fa fa-sort"></i></th>
+                        <th>Matricule</th>
+                        <th>Date Prévue de Paiement <i class="fa fa-sort"></i></th>
+                        <th>Montant à Payer <i class="fa fa-sort"></i></th>
+                        <th>Chambre</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pay of payment">
+                        <td>{{ pay.nomEtudiant }}</td>
+                        <td>{{ pay.prenomEtudiant }}</td>
+                        <td>{{ pay.matriculeEtudiant || 'Non renseigné' }}</td>
+                        <td>{{ pay.datePrevu }}</td>
+                        <td>{{ pay.montant }} Dt</td>
+                        <td>{{ pay.libellechambre }}</td>
+                        <td>
+                            <button class="btn btn-secondary" (click)="effectuerPaiement()">Payer</button>
+                            <button class="btn btn-primary" (click)="ImprimerFact()">Facture</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+   
+</div>
+

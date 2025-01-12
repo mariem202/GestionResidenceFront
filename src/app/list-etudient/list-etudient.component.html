@@ -1,0 +1,169 @@
+
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Gérer <b>etudiant</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Search Input -->
+                        <mat-form-field appearance="outline" class="search-field">
+                            <input matInput placeholder="Rechercher par nom, matricule ou filière" [(ngModel)]="searchTerm"
+                                (input)="filterEtudiants()" />
+                        </mat-form-field>
+                       
+                        <a class="btn btn-success" data-toggle="modal"  (click)="openAddPopup()"><i
+                                class="material-icons">&#xE147;</i> <span>Ajouter etudiant</span></a>
+                        <!-- <button class="btn btn-secondary" (click)="openAddPopup()">
+                            <i class="material-icons">&#xE147;</i> <span>Ajouter etudiant</span>
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr> 
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Date de Naissance</th>
+                            <th>Matricule</th>
+                            <th>Filière</th>
+                            <th>Sexe</th>
+                            <th>Email</th>
+                            <th>Chambre</th>
+                            <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let etudiant of filteredEtudiants">
+                        <td>{{ etudiant.nom }}</td>
+                        <td>{{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.dateNaissance | date }}</td>
+                        <td>{{ etudiant.matricule }}</td>
+                        <td>{{ etudiant.filiere }}</td>
+                        <td>{{ etudiant.sexe }}</td>
+                        <td>{{ etudiant.email }}</td>
+                        <td>{{ etudiant.chambre?.libelle || 'Non spécifié'}}</td>
+                        <td>
+                            <a class="edit" title="Edit" data-toggle="tooltip" (click)="openEditPopup(etudiant)"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip" (click)="deleteEtudiant(etudiant.id)"><i class="material-icons">&#xE872;</i></a>
+                            <a  class="view" title="View Details" data-toggle="tooltip" (click)="openDetailPopup(etudiant)"><i class="material-icons">&#xE5C8;</i></a>
+                        </td>
+                    </tr>
+                    
+                  
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Popup unique pour afficher les détails et effectuer une affectation -->
+<div class="popup2" *ngIf="showDetailPopup">
+    <div class="popup-content2">
+    <mat-dialog-content *ngIf="selectedEtudiant">
+        <h2>Détails de l'étudiant</h2>
+        <p><strong>Nom :</strong> {{ selectedEtudiant.nom }}</p>
+        <p><strong>Prénom :</strong> {{ selectedEtudiant.prenom }}</p>
+        <p><strong>Email :</strong> {{ selectedEtudiant.email }}</p>
+        <!-- Formulaire pour l'affectation de chambre -->
+        <h4>Affecter Chambre</h4>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-select [(ngModel)]="selectedChambreId" name="chambreId" placeholder="Sélectionner une chambre">
+                <mat-option *ngFor="let chambre of chambres" [value]="chambre.id">{{ chambre.libelle }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- Boutons d'action -->
+        <div class="actions">
+            <button mat-raised-button color="warn" (click)="closePopup()">Fermer</button>
+            <button mat-raised-button color="primary" (click)="affecterChambre()" *ngIf="!selectedEtudiant.chambre">Affecter</button>
+<button mat-raised-button color="primary" (click)="libererChambre()" *ngIf="selectedEtudiant.chambre">Liberer</button>
+        </div>
+    </mat-dialog-content>
+  </div>
+</div>
+<!-- Popup pour ajouter un étudiant -->
+<div class="popup" *ngIf="showAddPopup">
+    <div class="popup-content">
+        <mat-card-content>
+            <mat-card-title>Ajouter un Étudiant</mat-card-title>
+            <form class="basic-form" #addEtudiantForm="ngForm" (ngSubmit)="addEtudiant()">
+                <div class="row">
+                    <!-- Nom et Prénom -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Nom" id="nom" name="nom" class="form-control"
+                                [(ngModel)]="nouvelEtudiant.nom" required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Prénom" id="prenom" name="prenom"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.prenom" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Date de Naissance -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="date" matInput placeholder="Date de Naissance" id="dateNaissance"
+                                name="dateNaissance" class="form-control" [(ngModel)]="nouvelEtudiant.dateNaissance"
+                                required />
+                        </mat-form-field>
+                    </div>
+                    <!-- Sexe -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-select [(ngModel)]="nouvelEtudiant.sexe" name="sexe" required>
+                                <mat-option value="M">Masculin</mat-option>
+                                <mat-option value="F">Féminin</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Matricule et Filière -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Matricule" id="matricule" name="matricule"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.matricule" required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="text" matInput placeholder="Filière" id="filiere" name="filiere"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.filiere" required />
+                        </mat-form-field>
+                    </div>
+
+                    
+
+                    <!-- Email -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="email" matInput placeholder="Email" id="email" name="email"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.email" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Mot de Passe -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <input type="password" matInput placeholder="Mot de Passe" id="motDePasse" name="motDePasse"
+                                class="form-control" [(ngModel)]="nouvelEtudiant.motDePasse" required />
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="col-12 text-center">
+                        <button mat-flat-button class="addbtn" color="primary" type="submit">Ajouter</button>
+                        <button mat-flat-button class="closebtn" color="warn" type="button" (click)="closeAddPopup()">Annuler</button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+ 
+</div>

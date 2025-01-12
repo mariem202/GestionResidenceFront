@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Étudiants affectés à la chambre {{ data.chambre.libelle }}</h2>
+<mat-dialog-content>
+    <ul>
+        <ng-container *ngIf="data.chambre.etudiants && data.chambre.etudiants.length > 0; else noStudents">
+            <li *ngFor="let student of data.chambre">
+                <!-- Vérification si nom et prénom sont définis -->
+                {{ student.nom || 'Aucun nom' }} {{ student.prenom || 'Aucun prénom' }}
+            </li>
+        </ng-container>
+        <ng-template #noStudents>
+            <li>Aucun étudiant dans cette chambre.</li>
+        </ng-template>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Fermer</button>
+</mat-dialog-actions>

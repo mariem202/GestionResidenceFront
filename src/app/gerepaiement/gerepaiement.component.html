@@ -1,0 +1,56 @@
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Gérer <b>etudiant</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Search Input -->
+                        <mat-form-field appearance="outline" class="search-field">
+                            <input matInput placeholder="Rechercher par nom, matricule ou filière"
+                                [(ngModel)]="searchTerm" (input)="filterEtudiants()" />
+                        </mat-form-field>
+
+                       
+                        <!-- <button class="btn btn-secondary" (click)="openAddPopup()">
+                            <i class="material-icons">&#xE147;</i> <span>Ajouter etudiant</span>
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Chambre</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Matricule</th>
+                        <th>date Paiement </th>
+                        <th>date Prevu </th>
+                        <th>montant</th>
+                        <th>status</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let etudiant of filteredEtudiants">
+                        <td>{{ etudiant.libelleChambre }}</td>
+                        <td>{{ etudiant.prenomEtudiant }}</td>
+                        <td>{{ etudiant.nomEtudiant }}</td>
+                        <td>{{ etudiant.matriculeEtudiant }}</td>
+                        <td>{{ etudiant.datePaiement }}</td>
+                        <td>{{ etudiant.datePrevu }}</td>
+                        <td>{{ etudiant.montant }}</td>
+                        <td>{{ etudiant.status }}</td>
+                        
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

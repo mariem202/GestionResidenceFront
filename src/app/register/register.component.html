@@ -1,0 +1,125 @@
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <!-- MDB UI Kit CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <!-- Image Placeholder -->
+                </div>
+                <div class="wrapper">
+                    <div class="text-center mt-4 name insc">Inscription</div>
+
+                    <!-- Ajout de la directive ngForm -->
+                    <form class="p-3 mt-3" #registrationForm="ngForm" (ngSubmit)="register()">
+                        <!-- Nom et Prénom côte à côte -->
+                        <div class="form-row">
+                            <!-- Nom -->
+                            <div class="form-group col-md-6">
+                                <label for="nom">Nom</label>
+                                <div class="form-field d-flex align-items-center">
+                                    <span class="fas fa-user"></span>
+                                    <input type="text" name="nom" [(ngModel)]="nom" id="nom" placeholder="Nom" required
+                                        #nomField="ngModel" />
+                                </div>
+                            </div>
+                            <!-- Prénom -->
+                            <div class="form-group col-md-6">
+                                <label for="prenom">Prénom</label>
+                                <div class="form-field d-flex align-items-center">
+                                    <span class="fas fa-user"></span>
+                                    <input type="text" name="prenom" [(ngModel)]="prenom" id="prenom"
+                                        placeholder="Prénom" required #prenomField="ngModel" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- Date de Naissance -->
+                            <div class="form-group col-md-6">
+                                <div class="form-field d-flex align-items-center">
+                                    <span class="fas fa-calendar"></span>
+                                    <input type="date" name="dateNaissance" [(ngModel)]="dateNaissance"
+                                        id="dateNaissance" required #dateField="ngModel" />
+                                </div>
+                            </div>
+                            <!-- Sexe -->
+                            <div class="form-group col-md-6">
+                                <label for="sexe">Sexe:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" name="sexe" [(ngModel)]="sexe" id="sexeM" value="M" required
+                                        #sexeField="ngModel" />
+                                    <label for="sexeM" class="ml-2">M</label>
+
+                                    <input type="radio" name="sexe" [(ngModel)]="sexe" id="sexeF" value="F" class="ml-4"
+                                        required />
+                                    <label for="sexeF" class="ml-2">F</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- Matricule -->
+                            <div class="form-group col-md-6">
+                                <div class="form-field d-flex align-items-center">
+                                    <span class="fas fa-id-badge"></span>
+                                    <input type="text" name="matricule" [(ngModel)]="matricule" id="matricule"
+                                        placeholder="Matricule" required #matriculeField="ngModel" />
+                                </div>
+                            </div>
+                            <!-- Filière -->
+                            <div class="form-group col-md-6">
+                                <div class="form-field d-flex align-items-center">
+                                    <span class="fas fa-graduation-cap"></span>
+                                    <input type="text" name="filiere" [(ngModel)]="filiere" id="filiere"
+                                        placeholder="Filière" required #filiereField="ngModel" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-field d-flex align-items-center">
+                            <span class="far fa-envelope"></span>
+                            <input type="email" name="email" [(ngModel)]="email" id="email" placeholder="Email" required
+                                #emailField="ngModel" />
+                        </div>
+
+                        <!-- Mot de passe -->
+                        <div class="form-field d-flex align-items-center">
+                            <span class="fas fa-key"></span>
+                            <input type="password" name="password" [(ngModel)]="password" id="password"
+                                placeholder="Mot de passe" required #passwordField="ngModel" />
+                        </div>
+
+                        <!-- Confirmation Mot de passe -->
+                        <div class="form-field d-flex align-items-center">
+                            <span class="fas fa-key"></span>
+                            <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword"
+                                id="confirmPassword" placeholder="Confirmez le mot de passe" required
+                                #confirmPasswordField="ngModel" />
+                        </div>
+
+                        <!-- Bouton S'inscrire désactivé si un champ est vide -->
+                        <button class="btn mt-3" type="submit" [disabled]="!registrationForm.valid">S'inscrire</button>
+                    </form>
+
+                    <div class="text-center fs-6">
+                        <a href="/login">Déjà inscrit ? Connectez-vous</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MDB UI Kit JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+</body>
